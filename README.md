@@ -38,15 +38,12 @@ Send POST with body containing the following JSON in the body to localhost:8080/
 }
 ```
 
-Response received with code 200 on successful login will be
+Response received with code 200 on successful login will be (contains other not important information too)
 
 ```json
 {
 	"token": "ddffgggddghghggws...",
 	"type": "Bearer"
-	// more
-	// entries
-	// here
 }
 ```
 
