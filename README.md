@@ -42,12 +42,11 @@ Response received with code 200 on successful login will be
 
 ```json
 {
-    "token": "ddffgggddghghggws...",
-    "type": "Bearer",
-    .
-    .
-    .
-
+	"token": "ddffgggddghghggws...",
+	"type": "Bearer"
+	// more
+	// entries
+	// here
 }
 ```
 
