@@ -54,4 +54,4 @@ The important thing to note is the token and type of token this will be used to 
 
 To use this token, add it to the html request header in the authorization field. For more information on Authorization field, refer to the following link:
 
-[Authorization in HTML]("https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization#:~:text=The%20HTTP%20Authorization%20request%20header,and%20the%20WWW%2DAuthenticate%20header.")
+[Authorization in HTML](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization#:~:text=The%20HTTP%20Authorization%20request%20header,and%20the%20WWW%2DAuthenticate%20header)
