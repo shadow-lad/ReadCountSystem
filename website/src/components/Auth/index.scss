@@ -28,19 +28,19 @@ ul {
 	flex-wrap: nowrap;
 	justify-content: space-evenly;
 	font-size: 1.75rem;
-	font-weight: bold;
 
 	li {
 		padding: 0.5em;
-		transition: color 100ms ease-in-out;
+		transition: all 100ms ease-in-out;
 
 		&:hover {
 			cursor: pointer;
-			text-decoration:underline;
+			color: #f505fd9f;
 		}
 
 		&.active {
 			color: #0099ad;
+			font-weight: bold;
 			&:hover {
 				cursor: default;
 				text-decoration: none;
@@ -53,17 +53,35 @@ form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	font-family: inherit;
 
-	input, button {
-		padding: 0.75em;
+	.form-entry {
+		margin-bottom: 1em;
+	}
+
+	.form-input {
+		padding: 1em;
 		min-width: 250px;
+		line-height: 1.5em;
 		width: auto;
 		border-radius: 7px;
 		border: 1px solid #6a6a6a;
 		margin: 0;
-		margin-bottom: 0.5em;
-		font-family: inherit;
+		margin-bottom: 0em;
+	}
+
+	.username {
+		text-transform: lowercase;
+		&::placeholder {
+			text-transform: none;
+		}
+
+		&:-ms-input-placeholder { /* For Internet Explorer */
+			text-transform: none;
+		}
+
+		&::-ms-input-placeholder { /* Microsoft Edge */
+			text-transform: none;
+		}
 	}
 
 	input:focus {
@@ -71,10 +89,12 @@ form {
 		outline: none;
 	}
 
-	button {
+	input[type="submit"] {
 		background: #7a037e;
 		color: #ffffff;
 		border: none;
+		text-transform: uppercase;
+		margin: 0;
 		transition: background 250ms ease-in-out;
 
 		&:hover {
@@ -83,7 +103,7 @@ form {
 		}
 
 		&:active {
-			outline:none;
+			outline: none;
 			background: #4f0252;
 		}
 
@@ -92,6 +112,17 @@ form {
 			box-shadow: 0px 0px 2px #4f0252;
 		}
 
+		&:disabled {
+			background: #dddddd;
+			cursor: default;
+		}
 	}
+}
 
+.error-message {
+	color: red;
+	padding: 0;
+	margin: 0;
+	font-size: 0.75rem;
+	white-space: pre-line;
 }
