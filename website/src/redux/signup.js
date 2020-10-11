@@ -1,29 +1,29 @@
 import * as ActionTypes from "./actionTypes";
 
-export const Login = (
+export const SignUp = (
 	state = {
-		jwtToken: null,
-		errMess: null,
+		message: null,
+		errMess: null
 	},
 	action
 ) => {
-	switch (action.type) {
-		case ActionTypes.LOGIN_SUCCESSFUL:
+	switch(action.type) {
+		case ActionTypes.SIGNUP_SUCCESSFUL:
 			return {
 				...state,
-				jwtToken: action.payload,
-				errMess: null,
+				message: action.payload,
+				errMess:null
 			};
-		case ActionTypes.LOGIN_FAILED:
+		case ActionTypes.SIGNUP_FAILED:
 			return {
 				...state,
-				jwtToken: null,
+				message: null,
 				errMess: action.payload,
 			};
 		case ActionTypes.RESET:
 			return {
 				...state,
-				jwtToken: null,
+				message: null,
 				errMess: null,
 			};
 		default:

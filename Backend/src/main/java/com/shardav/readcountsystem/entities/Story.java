@@ -18,6 +18,8 @@ public class Story {
     @NotBlank
     private String title;
     @NotBlank
+    @Lob
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String content;
 
     @JsonIgnore

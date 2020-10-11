@@ -1,51 +1,102 @@
 import * as ActionTypes from "./actionTypes";
 import { baseUrl } from "../shared/constants";
 
-export const authenticate = (type, message) => ({
-	type: type,
-	payload: message
-});
-
-export const loginUser = (username, password) => async dispatch => {
-
+export const loginUser = (username, password) => async (dispatch) => {
 	const user = {
 		username: username,
-		password: password
+		password: password,
 	};
+
+	dispatch(toggleFormButton(true));
 
 	return fetch(baseUrl + "/auth/signin", {
 		method: "POST",
 		body: JSON.stringify(user),
 		headers: {
-			"Content-Type": "application/json"
-		}
-	}).then(response => {
-		if (response.ok) {
-			return response;
-		} else {
-			var error = new Error("Error" + response.status + ": " + response.message);
-			error.response = response;
-			throw error;
-		}
-	}, error => {
-		var errMess = new Error(error.message);
-		throw errMess;
-	}).then(response => response.json())
-	.then(response => dispatch(completeLogin(response)))
-	.catch(error =>{
-		console.log("loginUser ", error.message);
-		alert("You could not be logged in\n Error " + error.status + ": " + error.message);
+			"Content-Type": "application/json",
+		},
 	})
-
+		.then(
+			(response) => {
+				if (response.ok) {
+					return response;
+				} else {
+					return response.json().then((error)=>{
+						console.log(error);
+						throw new Error("Wrong username or password");
+					});
+				}
+			},
+			(error) => {
+				var errMess = new Error(error);
+				console.log("An error occured while logging in: " + error);
+				throw errMess;
+			}
+		)
+		.then((response) => response.json())
+		.then((response) => dispatch(result(ActionTypes.LOGIN_SUCCESSFUL, response.token)))
+		.catch((error) => {
+			dispatch(result(ActionTypes.LOGIN_FAILED, error.message));
+		});
 };
 
-export const completeLogin = (response) => {
-
-	console.log("completeLogin parameter response = " + response);
-
-	return {
-		type: ActionTypes.LOGIN_SUCESSFUL,
-		payload: response
+export const signUpUser = (username, password) => async (dispatch) => {
+	const user = {
+		username: username,
+		password: password,
 	};
 
+	dispatch(toggleFormButton(true));
+
+	return fetch(baseUrl + "/auth/signup", {
+		method: "POST",
+		body: JSON.stringify(user),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	})
+		.then(
+			(response) => {
+				if (response.ok) {
+					return response;
+				} else {
+					return response.json().then((error) => {
+						error = JSON.parse(JSON.stringify(error));
+						throw new Error(error.message);
+					});
+				}
+			},
+			(error) => {
+				var errMess = new Error(error);
+				console.log(error);
+				throw errMess;
+			}
+		)
+		.then((response) => response.json())
+		.then((response) => dispatch(result(ActionTypes.SIGNUP_SUCCESSFUL, response.message)))
+		.catch((error) => {
+			dispatch(result(ActionTypes.SIGNUP_FAILED, error.message));
+		});
 };
+
+export const result = (type, payload) => {
+	toggleFormButton(false);
+	return {
+		type: type,
+		payload: payload,
+	}
+};
+
+export const toggleFormButton = (disable) => {
+	return {
+		type: ActionTypes.FORM_BUTTON_TOGGLE,
+		payload: disable,
+	}
+}
+
+export const reset = () => {
+	return {
+		type: ActionTypes.RESET,
+		payload: null,
+	};
+}

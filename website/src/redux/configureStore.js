@@ -1,21 +1,17 @@
-import { createStore, combineReducers, applyMiddleware } from "redux"
-import { createForms } from "react-redux-form";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import logger from "redux-logger";
-import { InitialCredentials } from "./forms";
+import { FormButton } from "./formButton";
 import { Login } from "./login";
+import { SignUp } from "./signup";
+// import logger from "redux-logger"; // Dev only
 
 export const ConfigureStore = () => {
-
 	return createStore(
 		combineReducers({
-			loginStatus: Login,
-			...createForms({
-				login: InitialCredentials
-			})
+			loginDetails: Login,
+			signUpDetails: SignUp,
+			formButton: FormButton,
 		}),
-		applyMiddleware(thunk, logger)
+		applyMiddleware(thunk)
 	);
-
-
-}
+};
