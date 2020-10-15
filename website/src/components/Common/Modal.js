@@ -1,5 +1,6 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Component } from "react";
-import "./index.scss";
 
 class Modal extends Component {
 	render() {
@@ -7,7 +8,7 @@ class Modal extends Component {
 			<div className="modal-container">
 				<div className="modal">
 					<button type="button" onClick={this.props.onDismiss}>
-						&times;
+						<FontAwesomeIcon icon={faTimes} />
 					</button>
 					<h2>{this.props.title}</h2>
 					<hr />

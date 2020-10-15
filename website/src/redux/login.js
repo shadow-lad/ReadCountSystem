@@ -4,15 +4,18 @@ export const Login = (
 	state = {
 		jwtToken: null,
 		errMess: null,
+		username: null,
 	},
 	action
 ) => {
+	console.log("received cookies", action.payload);
 	switch (action.type) {
 		case ActionTypes.LOGIN_SUCCESSFUL:
 			return {
 				...state,
-				jwtToken: action.payload,
+				jwtToken: action.payload.token,
 				errMess: null,
+				username: action.payload.username
 			};
 		case ActionTypes.LOGIN_FAILED:
 			return {
@@ -23,7 +26,6 @@ export const Login = (
 		case ActionTypes.RESET:
 			return {
 				...state,
-				jwtToken: null,
 				errMess: null,
 			};
 		default:
