@@ -4,7 +4,22 @@ import { contains } from "../../shared/validation";
 
 class LoginForm extends Component {
 
+	constructor(props) {
+		super(props);
+
+		this.handleLogin = this.handleLogin.bind(this);
+	}
+
+	handleLogin(values, {setSubmitting}) {
+		setSubmitting(true);
+		console.log("Handle Login", this.props);
+		this.props.loginUser(values.username, values.password, this.props.cookies);
+	}
+
 	render() {
+
+		console.log("Login Form Rendered", this.props);
+
 		const validate = (values) => {
 			const errors = {};
 			if (!contains(values.username)) {
@@ -25,10 +40,7 @@ class LoginForm extends Component {
 					password: "",
 				}}
 				validate={validate}
-				onSubmit={(values, { setSubmitting }) => {
-					setSubmitting(true);
-					this.props.handleLogin(values);
-				}}>
+				onSubmit={this.handleLogin}>
 				{(formik) => (
 					<Form>
 						<div className="form-entry">

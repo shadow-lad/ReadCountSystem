@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import LoginForm from "../Forms/LoginForm";
 import SignUpForm from "../Forms/SignUpForm";
-import Modal from "../Modal";
-import "./index.scss";
+import Modal from "../Common/Modal";
 
 class Auth extends Component {
 	constructor(props) {
@@ -12,34 +12,23 @@ class Auth extends Component {
 			loginForm: true,
 		};
 
-		this.handleLoginPage = this.handleLoginPage.bind(this);
-		this.handleSignUpPage = this.handleSignUpPage.bind(this);
-		this.handleLogin = this.handleLogin.bind(this);
+		this.handleLoginPage = this.handleLoginForm.bind(this);
+		this.handleSignUpPage = this.handleSignUpForm.bind(this);
 		this.handleSignUp = this.handleSignUp.bind(this);
 	}
 
-	handleLogin(values) {
-		console.log("Logging in...");
-		this.props.loginUser(values.username, values.password);
-	}
-
 	handleSignUp(values) {
-		console.log("Signing Up...");
 		this.props.signUpUser(values.username, values.password);
 	}
 
-	handleLoginPage() {
-		console.log("Handle Login Called");
-
+	handleLoginForm() {
 		this.setState({
 			...this.state,
 			loginForm: true,
 		});
 	}
 
-	handleSignUpPage() {
-		console.log("Handle SignUp Called");
-
+	handleSignUpForm() {
 		this.setState({
 			...this.state,
 			loginForm: false,
@@ -50,10 +39,13 @@ class Auth extends Component {
 		const errorMessage =
 			this.props.loginDetails.errMess || this.props.signUpDetails.errMess;
 
+		console.log(this.props);
+
 		const FormLogin = () => (
 			<LoginForm
 				formButton={this.props.formButton}
-				handleLogin={this.handleLogin}
+				loginUser={this.props.loginUser}
+				cookies={this.props.cookies}
 			/>
 		);
 
@@ -66,7 +58,6 @@ class Auth extends Component {
 
 		const CurrentForm = () => {
 			if (this.props.loginDetails.errMess) {
-				console.log("returned current form");
 				if (!this.state.loginForm) {
 					this.setState({
 						...this.state,
@@ -87,21 +78,21 @@ class Auth extends Component {
 			}
 		};
 
-		console.log("Rendering Auth Page");
-
 		const Page = () => (
 			<>
+				<div className="background"></div>
+				<div className="background-overlay"></div>
 				<div className="auth-container">
 					<div className="form-container">
 						<ul>
 							<li
 								className={this.state.loginForm ? "active" : ""}
-								onClick={this.state.loginForm ? null : this.handleLoginPage}>
+								onClick={this.state.loginForm ? null : this.handleLoginForm}>
 								Login
 							</li>
 							<li
 								className={this.state.loginForm ? "" : "active"}
-								onClick={this.state.loginForm ? this.handleSignUpPage : null}>
+								onClick={this.state.loginForm ? this.handleSignUpForm : null}>
 								SignUp
 							</li>
 						</ul>
@@ -124,7 +115,8 @@ class Auth extends Component {
 				) : null}
 			</>
 		);
-		return <Page />;
+
+		return this.props.loginDetails.jwtToken ? <Redirect to="/stories" /> :  <Page /> ;
 	}
 }
 
