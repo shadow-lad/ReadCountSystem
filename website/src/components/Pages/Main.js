@@ -5,8 +5,8 @@ import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Auth from "./Auth";
 import { withCookies } from "react-cookie";
-import PostLogin from "../Routers/PostLogin";
-import PrivateRoute from "../Routers/PrivateRoute";
+import PostLogin from "../Route/PostLogin";
+import PrivateRoute from "../Route/PrivateRoute";
 
 const mapStateToProps = (state, ownProps) => ({
 	loginDetails: state.loginDetails,

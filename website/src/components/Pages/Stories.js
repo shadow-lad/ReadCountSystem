@@ -1,6 +1,7 @@
 import { faEye, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Stories extends Component {
 
@@ -9,6 +10,7 @@ export default class Stories extends Component {
 	}
 
 	render() {
+
 		const stories = this.props.stories.map((story) => (
 			<div key={story.id} className="story-entry">
 				<h2>{story.title}</h2>
@@ -19,7 +21,7 @@ export default class Stories extends Component {
 					<FontAwesomeIcon icon={faEye} />
 					{story.views}
 				</p>
-				<div className="story-selector"></div>
+				<Link to={`/stories/${story.id}`} ><div className="story-selector"></div></Link>
 			</div>
 		));
 

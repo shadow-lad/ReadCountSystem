@@ -15,6 +15,8 @@ class Auth extends Component {
 		this.handleLoginPage = this.handleLoginForm.bind(this);
 		this.handleSignUpPage = this.handleSignUpForm.bind(this);
 		this.handleSignUp = this.handleSignUp.bind(this);
+		this.handleLoginForm = this.handleLoginForm.bind(this);
+		this.handleSignUpForm = this.handleSignUpForm.bind(this);
 	}
 
 	handleSignUp(values) {
@@ -116,7 +118,11 @@ class Auth extends Component {
 			</>
 		);
 
-		return this.props.loginDetails.jwtToken ? <Redirect to="/stories" /> :  <Page /> ;
+		return this.props.loginDetails.jwtToken ? (
+			<Redirect to="/stories" />
+		) : (
+			<Page />
+		);
 	}
 }
 
