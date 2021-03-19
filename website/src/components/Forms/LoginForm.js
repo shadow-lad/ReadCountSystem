@@ -4,13 +4,7 @@ import { contains } from "../../shared/validation";
 
 class LoginForm extends Component {
 
-	constructor(props) {
-		super(props);
-
-		this.handleLogin = this.handleLogin.bind(this);
-	}
-
-	handleLogin(values, {setSubmitting}) {
+	handleLogin = (values, {setSubmitting}) => {
 		setSubmitting(true);
 		console.log("Handle Login", this.props);
 		this.props.loginUser(values.username, values.password, this.props.cookies);

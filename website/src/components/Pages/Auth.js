@@ -11,26 +11,20 @@ class Auth extends Component {
 		this.state = {
 			loginForm: true,
 		};
-
-		this.handleLoginPage = this.handleLoginForm.bind(this);
-		this.handleSignUpPage = this.handleSignUpForm.bind(this);
-		this.handleSignUp = this.handleSignUp.bind(this);
-		this.handleLoginForm = this.handleLoginForm.bind(this);
-		this.handleSignUpForm = this.handleSignUpForm.bind(this);
 	}
 
-	handleSignUp(values) {
+	handleSignUp = (values) => {
 		this.props.signUpUser(values.username, values.password);
 	}
 
-	handleLoginForm() {
+	handleLoginForm = () => {
 		this.setState({
 			...this.state,
 			loginForm: true,
 		});
 	}
 
-	handleSignUpForm() {
+	handleSignUpForm = () => {
 		this.setState({
 			...this.state,
 			loginForm: false,

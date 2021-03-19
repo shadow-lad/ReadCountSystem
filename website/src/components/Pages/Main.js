@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { loadLoginCookies, loginUser, reset, signUpUser } from "../../redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter, Switch, Route, Redirect } from "react-router-dom";
+import { loadLoginCookies, loginUser, reset, signUpUser } from "../../redux/actionCreators";
 
 import Auth from "./Auth";
 import { withCookies } from "react-cookie";

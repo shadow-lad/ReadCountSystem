@@ -1,23 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-export default class PrivateRoute extends Component {
-	render() {
-		const { component: Component, loginDetails, ...rest } = this.props;
+const PrivateRoute = ({ component: Component, loginDetails, ...rest }) => {
+    
+    console.log(rest);
 
-		console.log(rest);
+    return <Route {...rest} render={() => (loginDetails.jwtToken ? <Component {...rest} /> : <Redirect to="/auth" />)} />;
+};
 
-		return (
-			<Route
-				{...rest}
-				render={() =>
-					loginDetails.jwtToken ? (
-						<Component {...rest} />
-					) : (
-						<Redirect to="/auth" />
-					)
-				}
-			/>
-		);
-	}
-}
+export default PrivateRoute;
