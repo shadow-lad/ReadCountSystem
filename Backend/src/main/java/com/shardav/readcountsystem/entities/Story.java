@@ -1,6 +1,7 @@
 package com.shardav.readcountsystem.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,8 +13,9 @@ import java.util.List;
 public class Story {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GenericGenerator(name = "nanoID", strategy = "com.shardav.readcountsystem.generator.StoryIDGenerator")
+    @GeneratedValue(generator = "nanoID")
+    private String id;
 
     @NotBlank
     private String title;
@@ -36,11 +38,11 @@ public class Story {
         this.content = content;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
